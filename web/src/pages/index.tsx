@@ -1,10 +1,8 @@
 import React from 'react'
-import Button from '@material-ui/core/Button';
+import TopTemplate from '../componets/templates/top';
 
 const Index = () => (
-    <Button variant="contained" color="primary">
-      ボタン
-    </Button>
+    <TopTemplate></TopTemplate>
   );
 
 export default Index;
