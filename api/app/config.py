@@ -32,10 +32,7 @@ class Config():
   def get_app(self):
     """ アプリケーションの起動用の情報を取得する
     """
-    app_conf = self.__config_data['app']
-    if app_conf['port'] is not None:
-      app_conf['port'] = 5000
-    return app_conf
+    return self.__config_data['app']
 
   def get_const(self):
     """ アプリで使用するconst系のデータを辞書形式で返却する
