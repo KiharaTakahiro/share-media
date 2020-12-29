@@ -1,7 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
 from config import Config
-from controllers import users_controller
+from models.users.controller import router as user_route
+from db import database
 
 # configファイルを読み込み
 config = Config('./instance/env_dev.yml')
@@ -13,9 +14,27 @@ app = FastAPI(
     description=conf_app['api_description'],
 )
 
-# ルータの登録
-app.include_router(users_controller.router)
+# 起動時にDatabaseに接続する。
+@app.on_event("startup")
+async def startup():
+    await database.connect()
 
-# アプリケーションの起動
-if __name__ == '__main__':
-  uvicorn.run(app, port=conf_app['port'])
+# 終了時にDatabaseを切断する。
+@app.on_event("shutdown")
+async def shutdown():
+    await database.disconnect()
+
+# ルータの登録
+app.include_router(user_route)
+
+# # アプリケーションの起動
+# if __name__ == '__main__':
+#   uvicorn.run(app, port=conf_app['port'])
+
+from starlette.requests import Request
+
+@app.middleware("http")
+async def db_session_middleware(request: Request, call_next):
+    request.state.connection = database
+    response = await call_next(request)
+    return response
