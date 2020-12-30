@@ -1,8 +1,8 @@
 import React from "react";
-import PrimaryButton from "../atoms/buttons/primary_button"
-import RequireText from "../atoms/text_fields/nomal_text"
-import UserNameText from "../atoms/text_fields/user_name_text"
-import PartsTitle from "../atoms/styles/title"
+import PrimaryButton from "../parts/buttons/primary_button"
+import RequireText from "../parts/text_fields/nomal_text"
+import UserNameText from "../parts/text_fields/user_name_text"
+import PartsTitle from "../parts/styles/title"
 import Grid from '@material-ui/core/Grid'
 
 type Props = {}
