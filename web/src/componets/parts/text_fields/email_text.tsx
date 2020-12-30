@@ -1,5 +1,5 @@
 /**
- * ユーザのユーザ名入力用のテキストフィールド
+ * ユーザのEmail入力用のテキストフィールド
  */
 import TextField from '@material-ui/core/TextField'
 import React from "react"
@@ -27,19 +27,19 @@ type Props = {
   errors?: any
 }
 
-const UserNameText: React.FC<Props> = ({required, default_value, id, register, errors}) => {
+const EMailText: React.FC<Props> = ({required, default_value, id, register, errors}) => {
   return (
     <TextField 
       required={required}
       defaultValue={default_value}
       id={id}
-      inputRef={register({ required: required, maxLength: 10 })}
-      name="username"
-      label="ユーザ名"
+      inputRef={register({ required: required, maxLength: 30 })}
+      name="email"
+      label="email"
       variant="outlined"
       error={Boolean(errors.title)}
-      helperText={errors.title && "ユーザ名は10文字以内にして下さい。"}/>
+      helperText={errors.title && "emailは10文字以内にして下さい。"}/>
   )
 };
 
-export default UserNameText;
+export default EMailText;

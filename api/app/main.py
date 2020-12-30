@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from config import Config
 from models.users.controller import router as user_route
 from db import database
+from starlette.middleware.cors import CORSMiddleware
 
 # configファイルを読み込み
 config = Config('./instance/env_dev.yml')
@@ -12,6 +13,15 @@ conf_app = config.get_app()
 app = FastAPI(
     title=conf_app['api_name'],
     description=conf_app['api_description'],
+)
+
+# cors対策
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
 )
 
 # 起動時にDatabaseに接続する。

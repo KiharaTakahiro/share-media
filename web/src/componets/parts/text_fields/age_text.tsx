@@ -1,5 +1,5 @@
 /**
- * ユーザのユーザ名入力用のテキストフィールド
+ * ユーザの年齢入力用のテキストフィールド
  */
 import TextField from '@material-ui/core/TextField'
 import React from "react"
@@ -27,19 +27,19 @@ type Props = {
   errors?: any
 }
 
-const UserNameText: React.FC<Props> = ({required, default_value, id, register, errors}) => {
+const AgeText: React.FC<Props> = ({required, default_value, id, register, errors}) => {
   return (
     <TextField 
       required={required}
       defaultValue={default_value}
       id={id}
       inputRef={register({ required: required, maxLength: 10 })}
-      name="username"
-      label="ユーザ名"
+      name="age"
+      label="年齢"
       variant="outlined"
       error={Boolean(errors.title)}
-      helperText={errors.title && "ユーザ名は10文字以内にして下さい。"}/>
+      helperText={errors.title && "年齢は10文字以内にして下さい。"}/>
   )
 };
 
-export default UserNameText;
+export default AgeText;
