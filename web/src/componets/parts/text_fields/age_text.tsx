@@ -6,6 +6,14 @@ import React from "react"
 
 type Props = {
   /**
+   * register
+   */
+  register: any
+  /**
+   * errors属性
+   */
+  errors: any
+  /**
    * 必須(true)/必須ではない(false)
    */
   required?: boolean
@@ -17,19 +25,15 @@ type Props = {
    * id属性
    */
   id?: string
-  /**
-   * register
-   */
-  register?: any
-  /**
-   * errors属性
-   */
-  errors?: any
 }
 
 interface ValidationRule {
   required?: string
-  maxLength: {
+  max: {
+    value: number,
+    message: string
+  }
+  min: {
     value: number,
     message: string
   }
@@ -37,11 +41,29 @@ interface ValidationRule {
 
 const AgeText: React.FC<Props> = ({required, default_value, id, register, errors}) => {
 
+  /**
+   * 最大の年齢
+   */
+  const MAX_AGE = 200
+  
+  /**
+   * 最小の年齢
+   */
+  const MIN_AGE = 15
+  
+  /**
+   * バリデーションルール
+   * @param required 
+   */
   const validation_rule = (required: boolean) => {
     var component_rule: ValidationRule = {
-      maxLength: {
-        value: 3,
-        message: "年齢は3文字以内で入力してください"
+      max: {
+        value: MAX_AGE,
+        message: `年齢は${MAX_AGE}才以内で入力してください`
+      },
+      min: {
+        value: MIN_AGE,
+        message: `年齢は${MIN_AGE}才以上で入力してください`
       }
     }
     if (required) {
@@ -50,6 +72,9 @@ const AgeText: React.FC<Props> = ({required, default_value, id, register, errors
     return component_rule
   }
 
+  /**
+   * 表示領域
+   */
   return (
     <TextField 
       required={required}

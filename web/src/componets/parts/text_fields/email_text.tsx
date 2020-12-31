@@ -3,8 +3,17 @@
  */
 import TextField from '@material-ui/core/TextField'
 import React from "react"
+import { RegConst } from "../../../common/const"
 
 type Props = {
+  /**
+   * register
+   */
+  register: any
+  /**
+   * errors属性
+   */
+  errors: any
   /**
    * 必須(true)/必須ではない(false)
    */
@@ -17,14 +26,6 @@ type Props = {
    * id属性
    */
   id?: string
-  /**
-   * register
-   */
-  register?: any
-  /**
-   * errors属性
-   */
-  errors?: any
 }
 
 interface ValidationRule {
@@ -33,15 +34,32 @@ interface ValidationRule {
     value: number,
     message: string
   }
+  pattern: {
+    value: RegExp,
+    message: string
+  }
 }
 
 const EMailText: React.FC<Props> = ({required, default_value, id, register, errors}) => {
 
+  /**
+   * 最大文字数
+   */
+  const MAX_LENGTH = 30
+
+  /**
+   * バリデーションルール
+   * @param required 
+   */
   const validation_rule = (required: boolean) => {
     var component_rule: ValidationRule = {
       maxLength: {
-        value: 15,
-        message: "emailは15文字以内で入力してください"
+        value: MAX_LENGTH,
+        message: `emailは${MAX_LENGTH}文字以内で入力してください`
+      },
+      pattern: {
+        value: RegConst.EMAIL,
+        message: "emailアドレスの形式で入力してください"
       }
     }
     if (required) {
@@ -50,6 +68,9 @@ const EMailText: React.FC<Props> = ({required, default_value, id, register, erro
     return component_rule
   }
 
+  /**
+   * 表示領域
+   */
   return (
     <TextField 
       required={required}

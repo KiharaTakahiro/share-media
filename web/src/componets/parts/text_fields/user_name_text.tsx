@@ -3,6 +3,7 @@
  */
 import TextField from '@material-ui/core/TextField'
 import React from "react"
+import { RegConst } from "../../../common/const"
 
 type Props = {
   /**
@@ -33,6 +34,10 @@ interface ValidationRule {
     value: number,
     message: string
   }
+  pattern:{
+    value: RegExp
+    message: string
+  }
 }
 
 const UserNameText: React.FC<Props> = ({required, default_value, id, register, errors}) => {
@@ -42,6 +47,10 @@ const UserNameText: React.FC<Props> = ({required, default_value, id, register, e
       maxLength: {
         value: 10,
         message: "ユーザ名は10文字以内で入力してください"
+      },
+      pattern: {
+        value: RegConst.HANKAKU_EISU,
+        message: "ユーザ名は半角英数字で入力してください"
       }
     }
     if (required) {
