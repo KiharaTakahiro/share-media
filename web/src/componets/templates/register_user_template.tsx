@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper'
 import { useForm } from 'react-hook-form'
 import ApiCaller from '../../service/api_caller'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import Router from 'next/router'
 
 type Props = {}
 
@@ -42,6 +43,7 @@ const RegisterUserTemplate: React.FC<Props> = ({}) => {
     .catch(error => {
       console.log(error)
     })
+    Router.push('/complete_register_user')
   }
 
   return (
