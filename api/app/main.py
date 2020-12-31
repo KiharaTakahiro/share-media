@@ -16,6 +16,7 @@ app = FastAPI(
 )
 
 # cors対策
+# FIXME: 全部認めたらだめだと思うが一旦はこのまま実装する
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
