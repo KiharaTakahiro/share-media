@@ -27,18 +27,41 @@ type Props = {
   errors?: any
 }
 
+interface ValidationRule {
+  required?: string
+  maxLength: {
+    value: number,
+    message: string
+  }
+}
+
 const AgeText: React.FC<Props> = ({required, default_value, id, register, errors}) => {
+
+  const validation_rule = (required: boolean) => {
+    var component_rule: ValidationRule = {
+      maxLength: {
+        value: 3,
+        message: "年齢は3文字以内で入力してください"
+      }
+    }
+    if (required) {
+      component_rule['required'] = "年齢は必須です"
+    }
+    return component_rule
+  }
+
   return (
     <TextField 
       required={required}
       defaultValue={default_value}
       id={id}
-      inputRef={register({ required: required, maxLength: 10 })}
+      inputRef={register(validation_rule(required))}
       name="age"
       label="年齢"
       variant="outlined"
-      error={Boolean(errors.title)}
-      helperText={errors.title && "年齢は10文字以内にして下さい。"}/>
+      type="number"
+      error={Boolean(errors.age)}
+      helperText={errors.age && errors.age.message}/>
   )
 };
 

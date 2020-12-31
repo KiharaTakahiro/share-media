@@ -27,18 +27,40 @@ type Props = {
   errors?: any
 }
 
+interface ValidationRule {
+  required?: string
+  maxLength: {
+    value: number,
+    message: string
+  }
+}
+
 const UserNameText: React.FC<Props> = ({required, default_value, id, register, errors}) => {
+
+  const validation_rule = (required: boolean) => {
+    var component_rule: ValidationRule = {
+      maxLength: {
+        value: 10,
+        message: "ユーザ名は10文字以内で入力してください"
+      }
+    }
+    if (required) {
+      component_rule['required'] = "ユーザ名は必須です"
+    }
+    return component_rule
+  }
+
   return (
     <TextField 
       required={required}
       defaultValue={default_value}
       id={id}
-      inputRef={register({ required: required, maxLength: 10 })}
+      inputRef={register(validation_rule(required))}
       name="username"
       label="ユーザ名"
       variant="outlined"
-      error={Boolean(errors.title)}
-      helperText={errors.title && "ユーザ名は10文字以内にして下さい。"}/>
+      error={Boolean(errors.username)}
+      helperText={errors.username && errors.username.message}/>
   )
 };
 

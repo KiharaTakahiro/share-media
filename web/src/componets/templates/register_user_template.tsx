@@ -47,7 +47,7 @@ const RegisterUserTemplate: React.FC<Props> = ({}) => {
   return (
     <>
       <Grid container direction="column" justify="center" alignItems="center">
-        <PartsTitle title="ユーザ登録画面"/>
+        <PartsTitle title="ユーザ登録"/>
         <Paper  elevation={3}>
           <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
             <Grid container direction="column" justify="center" alignItems="center">
@@ -62,6 +62,6 @@ const RegisterUserTemplate: React.FC<Props> = ({}) => {
       </Grid>
     </>
   )
-};
+}
 
 export default RegisterUserTemplate;
