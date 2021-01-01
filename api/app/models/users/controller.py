@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from .model import users
 from .schema import UserCreate
-from db import get_connection
+from app.db import get_connection
 from databases import Database
 import hashlib
 

@@ -49,12 +49,12 @@ const PasswordText: React.FC<Props> = ({required, default_value, id, register, e
   /**
    * 最大文字数
    */
-  const MAX_LENGTH = 15
+  const MAX_LENGTH = 20
 
   /**
    * 最小文字数
    */
-  const MIN_LENGHT = 3
+  const MIN_LENGHT = 8
 
   /**
    * バリデーションルール
