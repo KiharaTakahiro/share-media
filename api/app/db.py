@@ -1,21 +1,27 @@
 import databases
 import sqlalchemy
+from .config import Config
 
-# TODO: Configから取得して設定するように変更したいが一旦保留
-DATABASE = 'postgresql'
-USER = 'postgres'
-PASSWORD = 'postgres'
-HOST = 'localhost'
-PORT = '5432'
-DB_NAME = 'share_media'
+# TODO: 本当はここに書きたくないが一旦ここに記載
+config = Config('./instance/env_dev.yml')
+config_db = config.get_db_connect()
 
-DATABASE_URL = '{}://{}:{}@{}:{}/{}'.format(DATABASE, USER, PASSWORD, HOST, PORT, DB_NAME)
+DATABASE = config_db['db_type']
+USER = config_db['user']
+PASSWORD = config_db['password']
+HOST = config_db['host']
+PORT = config_db['port']
+DB_NAME = config_db['db_name']
+
+DATABASE_URL = f'{DATABASE}://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB_NAME}'
+
+MIN_SIZE = config_db['min_size']
+MAX_SIZE = config_db['max_size']
 
 # databases
-database = databases.Database(DATABASE_URL, min_size=5, max_size=20)
+database = databases.Database(DATABASE_URL, min_size=MIN_SIZE, max_size=MAX_SIZE)
 
 ECHO_LOG = False
-
 engine = sqlalchemy.create_engine(DATABASE_URL, echo=ECHO_LOG)
 
 metadata = sqlalchemy.MetaData()

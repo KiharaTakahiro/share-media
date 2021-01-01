@@ -1,5 +1,5 @@
 import sqlalchemy
-from db import metadata, engine
+from app.db import metadata, engine
 
 users = sqlalchemy.Table(
     "users",
