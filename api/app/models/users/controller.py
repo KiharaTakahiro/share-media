@@ -1,15 +1,15 @@
 from fastapi import APIRouter, Depends
 from .model import users
 from .schema import UserCreate
-from app.db import get_connection
 from databases import Database
-import hashlib
+from app.models.base_controller import get_connection
+from app.common.convert import convert_hash
 
 router = APIRouter()
 
 # TODO: ここに書きたくない
 def get_users_insert_dict(user):
-    pwhash=hashlib.sha256(user.password.encode('utf-8')).hexdigest()
+    pwhash=convert_hash(user.password)
     values=user.dict()
     values.pop("password")
     values["password"]=pwhash

@@ -55,5 +55,3 @@ def register_middleware(app:FastAPI):
     request.state.connection = database
     response = await call_next(request)
     return response
-
-
