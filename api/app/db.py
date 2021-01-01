@@ -1,9 +1,8 @@
 import databases
 import sqlalchemy
-from .config import Config
+from .config import config
 
 # TODO: 本当はここに書きたくないが一旦ここに記載
-config = Config('./instance/env_dev.yml')
 config_db = config.get_db_connect()
 
 DATABASE = config_db['db_type']

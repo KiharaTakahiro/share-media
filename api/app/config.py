@@ -56,3 +56,9 @@ class Config():
     if self.__config_data['env'] is not None:
       if not self.__config_data['env'] in self.ENV_LIST:
         raise ValueError("サポートされていない環境変数を使用しています")
+
+def create_config():
+  # TODO: だし分け方法等は後で考える
+  return Config('./instance/env_dev.yml')
+
+config = create_config()
