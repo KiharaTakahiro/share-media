@@ -9,6 +9,7 @@ share_media用のデータベースを```CREATE DATABASE```で作成しておく
 ２．instanceディレクトリにenv_dev.ymlを生成して配置する  
 env_dev.ymlは下記を参考に作成する(DB部分は#以降の内容にならって前提で作成したdatabaseへの接続情報で記載してください)  
 ```yaml
+env: dev
 app:
   api_name: share-media
   api_description: media share api
