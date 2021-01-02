@@ -2,9 +2,9 @@
 メディアの共有用サイト
 
 # 開発環境構築
-・前提
-share_media用のデータベースを```CREATE DATABASE```で作成しておく(テーブルはapi起動時にマイグレートされるため不要)
-・手順
+・前提  
+share_media用のデータベースを```CREATE DATABASE```で作成しておく(テーブルはapi起動時にマイグレートされるため不要)  
+・手順  
 １．apiディレクトリにinstanceディレクトリを生成  
 ２．instanceディレクトリにenv_dev.ymlを生成して配置する  
 env_dev.ymlは下記を参考に作成する(DB部分は#以降の内容にならって前提で作成したdatabaseへの接続情報で記載してください)  
