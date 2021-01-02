@@ -2,7 +2,7 @@ from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from app.database import Base
 
 class User(Base):
-  """ ユーザのモデルを作成
+  """ ユーザのテーブル
   """
   __tablename__ = "users"
   id = Column(Integer, primary_key=True, index=True)
