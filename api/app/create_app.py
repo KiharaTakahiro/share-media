@@ -1,13 +1,17 @@
 from .config import config
-from .db import database
-from .models.users.controller import router as user_route
-from fastapi import FastAPI
+from .controllers.user_controller import router as user_route
+from fastapi import FastAPI, Response
 from starlette.requests import Request
 from starlette.middleware.cors import CORSMiddleware
+from app.database import SessionLocal, engine
+from app.models import Base
 
 def create_app():
   """ FastAPIのアプリケーションを生成する
   """
+  # テーブルが存在しないときはマイグレーションする
+  Base.metadata.create_all(bind=engine)
+  
   # FastAPIインスタンスの生成
   conf_app = config.get_app()
   app = FastAPI(
@@ -17,10 +21,10 @@ def create_app():
 
   # CORSの許可設定
   register_cors(app)
+  
   # ルータ登録
   register_route(app)
-  # イベントの登録
-  register_event(app)
+  
   # ミドルウェアの登録
   register_middleware(app)
   return app
@@ -40,18 +44,13 @@ def register_route(app:FastAPI):
   """
   app.include_router(user_route)
 
-def register_event(app:FastAPI):
-  @app.on_event("startup")
-  async def startup():
-    await database.connect()
-  
-  @app.on_event("shutdown")
-  async def shutdown():
-      await database.disconnect()
-
 def register_middleware(app:FastAPI):
   @app.middleware("http")
   async def db_session_middleware(request: Request, call_next):
-    request.state.connection = database
-    response = await call_next(request)
+    response = Response("Internal server error", status_code=500)
+    try:
+      request.state.db = SessionLocal()
+      response = await call_next(request)
+    finally:
+      request.state.db.close()
     return response

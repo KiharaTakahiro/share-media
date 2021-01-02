@@ -38,12 +38,12 @@ const RegisterUserTemplate: React.FC<Props> = ({}) => {
     console.log(data)
     ApiCaller.post("users/create", data)
     .then(response => {
-      console.log(response)
+      Router.push('/complete_register_user')
     })
     .catch(error => {
-      console.log(error)
+      // TODO: エラーメッセージを表示するようにしたい
+      console.log(error.response.data)
     })
-    Router.push('/complete_register_user')
   }
 
   return (
