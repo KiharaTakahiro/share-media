@@ -41,7 +41,8 @@ const RegisterUserTemplate: React.FC<Props> = ({}) => {
       Router.push('/complete_register_user')
     })
     .catch(error => {
-      console.log(error)
+      // TODO: エラーメッセージを表示するようにしたい
+      console.log(error.response.data)
     })
   }
 

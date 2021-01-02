@@ -8,8 +8,8 @@ router = APIRouter()
 
 @router.post("/users/create", tags = ['user_create'])
 async def users_create(user: UserCreate, db: Session = Depends(get_db)):
-  aleady_user = user_service.get_user_by_user_name(user.username)
-  if aleady_user is None:
+  aleady_user = user_service.get_user_by_user_name(db, user.username)
+  if aleady_user is not None:
     raise HTTPException(status_code=400, detail="登録済みのユーザがいます")
   user_service.create_user(db, user)
   return {'result':'success'}
