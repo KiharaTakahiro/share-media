@@ -16,6 +16,4 @@ class SessionUser(BaseModel):
   id: int
   username: str
   email: str
-  password: str
   age: int
-  refresh_token: str

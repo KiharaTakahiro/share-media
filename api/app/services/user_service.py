@@ -11,8 +11,9 @@ from jose import jwt
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-# TODO: ここは本番運用では変えるか、場所を変える
+# TODO: 実際の値はconfigから取得するように変更する
 HASH_SOLT = "SREMEHADIASTOL"
+TOKEN_SECRETE_KEY = "REMHAKOADISSEENTTOL"
 
 def create_user(db: Session, user: UserCreate):
     hashed_password = convert_hash(user.password + HASH_SOLT)
@@ -35,6 +36,7 @@ def get_user_by_user_login(db: Session, user: UserLogin):
 def create_token(db: Session, user_id: int):
   
   # ペイロード作成
+  # TODO: 期間もconfigから取得するように変更する
   access_payload = {
       'token_type': 'access_token',
       'exp': datetime.utcnow() + timedelta(minutes=60),
@@ -46,9 +48,10 @@ def create_token(db: Session, user_id: int):
       'user_id': user_id,
   }
 
-  # トークン作成（本来は'SECRET_KEY123'はもっと複雑にする）
-  access_token = jwt.encode(access_payload, 'SECRET_KEY123', algorithm='HS256')
-  refresh_token = jwt.encode(refresh_payload, 'SECRET_KEY123', algorithm='HS256')
+  # トークン作成
+  # TODO: algorithmもconfigに配置する
+  access_token = jwt.encode(access_payload, TOKEN_SECRETE_KEY, algorithm='HS256')
+  refresh_token = jwt.encode(refresh_payload, TOKEN_SECRETE_KEY, algorithm='HS256')
   
   # リフレッシュトークンを更新する
   db_user = get_user_by_user_id(db, user_id)
@@ -61,7 +64,7 @@ def create_token(db: Session, user_id: int):
 def get_current_user_from_token(token: str, token_type: str):
   """tokenからユーザーを取得"""
   # トークンをデコードしてペイロードを取得。有効期限と署名は自動で検証される。
-  payload = jwt.decode(token, 'SECRET_KEY123', algorithms=['HS256'])
+  payload = jwt.decode(token, TOKEN_SECRETE_KEY, algorithms=['HS256'])
 
   # トークンタイプが一致することを確認
   if payload['token_type'] != token_type:
