@@ -9,3 +9,11 @@ class UserCreate(BaseModel):
 class UserLogin(BaseModel):
   username: str = Field(..., max_length=10, title='ユーザ名', description='ユーザ名')
   password: str = Field(..., min_length=8, max_length=20, title='パスワード', description='8文字以上で20文字以内のパスワード')
+
+class SessionUser(BaseModel):
+  """ ログイン時に格納されるユーザ情報
+  """
+  id: int
+  username: str
+  email: str
+  age: int
