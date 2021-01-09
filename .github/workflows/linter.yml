@@ -6,8 +6,7 @@ name: Super Lint Code Base
 on:
   push:
     branches-ignore:
-      - 'master'
-      - 'production' #やる必要のないブランチがあれば追記しましょう
+      - 'main'
 
 jobs:
   build:
