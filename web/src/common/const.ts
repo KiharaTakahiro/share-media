@@ -23,3 +23,14 @@ export namespace RegConst {
    */
   export const EMAIL = /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/
 }
+
+export namespace PAGE_END_POINT {
+  /**
+   * ログインページのエンドポイント
+   */
+  export const LOGIN_USER = "/login_user"
+  /**
+   * ユーザ登録ページのエンドポイント
+   */
+  export const REGISTER_USER = "/register_user"
+}

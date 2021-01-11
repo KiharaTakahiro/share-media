@@ -5,15 +5,21 @@ from starlette.requests import Request
 from starlette.middleware.cors import CORSMiddleware
 from app.database import SessionLocal, engine
 from app.models import Base
+from .logger import logger
+from app.common.exception import APIException, ValidationException
 
 def create_app():
   """ FastAPIのアプリケーションを生成する
   """
-  # テーブルが存在しないときはマイグレーションする
+  logger.debug("アプリケーション生成ロジック開始")
+
   Base.metadata.create_all(bind=engine)
-  
+  logger.debug("マイグレーション完了")
+
   # FastAPIインスタンスの生成
   conf_app = config.get_app()
+  logger.debug(f'conf_app: {conf_app}')
+
   app = FastAPI(
       title=conf_app['api_name'],
       description=conf_app['api_description'],
@@ -47,10 +53,16 @@ def register_route(app:FastAPI):
 def register_middleware(app:FastAPI):
   @app.middleware("http")
   async def db_session_middleware(request: Request, call_next):
+    logger.debug(f'request: {request}')
     response = Response("Internal server error", status_code=500)
     try:
       request.state.db = SessionLocal()
       response = await call_next(request)
+    except ValidationException as e:
+      raise e
+    except Exception as e:
+      raise APIException(f'{e}')
     finally:
+      logger.debug(f'response: {response}')
       request.state.db.close()
     return response

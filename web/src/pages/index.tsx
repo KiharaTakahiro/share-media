@@ -1,8 +1,10 @@
 import React from 'react'
-import TopTemplate from '../componets/templates/top_template';
+import TopTemplate from '../componets/templates/top_template'
 
-const Index = () => (
-    <TopTemplate></TopTemplate>
-  );
+const Index = () => {
+  return (
+    <TopTemplate/>
+  )
+}
 
 export default Index;

@@ -1,4 +1,5 @@
 import axios from "axios"
+import { get_access_token, logout } from '../common/auth'
 
 /**
  * バックエンドとの通信を行うための設定
@@ -19,8 +20,11 @@ const instance = axios.create({
  */
 instance.interceptors.request.use(
   config => {
-    // request.headers.common["Authorization"] = "AUTH_TOKEN";
-    
+    // tokenが存在する場合は再度
+    const access_token = get_access_token()
+    if (typeof access_token !== 'undefined') {
+      config.headers = { Authorization: `Bearer ${access_token}` }
+    }
     return config
   },
   error => {
@@ -38,7 +42,10 @@ instance.interceptors.response.use(
     return response;
   },
   error => {
-    return Promise.reject(error);
+    if(error.state == 401){
+      logout()
+    }
+    return Promise.reject(error)
   }
 )
 
