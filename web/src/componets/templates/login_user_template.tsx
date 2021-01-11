@@ -2,8 +2,6 @@ import React from "react";
 import PrimarySubmitButton from "../parts/buttons/primary_submit_button"
 import UserNameText from "../parts/text_fields/user_name_text"
 import PasswordText from "../parts/text_fields/password_text"
-import EMailText from "../parts/text_fields/email_text"
-import AgeText from "../parts/text_fields/age_text"
 import PartsTitle from "../parts/styles/title"
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
@@ -11,7 +9,7 @@ import { useForm } from 'react-hook-form'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 type Props = {
-  register_user: any // ユーザ登録処理
+  login: any // ログイン処理
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,25 +24,25 @@ const useStyles = makeStyles((theme: Theme) =>
         width: '52ch',
         height: '7ch'
       },
+
     },
   }),
 )
 
-const RegisterUserTemplate: React.FC<Props> = ({ register_user }) => {
+const LoginUserTemplate: React.FC<Props> = ({ login }) => {
   const classes = useStyles()
   const { handleSubmit, register, errors } = useForm()
+
   return (
     <>
       <Grid container direction="column" justify="center" alignItems="center">
-        <PartsTitle title="ユーザ登録"/>
+        <PartsTitle title="ログイン"/>
         <Paper  elevation={3}>
-          <form className={classes.root} onSubmit={handleSubmit(register_user)}>
+          <form className={classes.root} onSubmit={handleSubmit(login)}>
             <Grid container direction="column" justify="center" alignItems="center">
               <UserNameText required register={register} errors={errors}/>
               <PasswordText required register={register} errors={errors}/> 
-              <EMailText required register={register} errors={errors} />
-              <AgeText register={register} errors={errors} />
-              <PrimarySubmitButton button_name="登録"/>
+              <PrimarySubmitButton button_name="ログイン"/>
             </Grid>
           </form>
         </Paper>
@@ -53,4 +51,4 @@ const RegisterUserTemplate: React.FC<Props> = ({ register_user }) => {
   )
 }
 
-export default RegisterUserTemplate;
+export default LoginUserTemplate;

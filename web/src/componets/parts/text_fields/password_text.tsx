@@ -67,7 +67,7 @@ const PasswordText: React.FC<Props> = ({required, default_value, id, register, e
         message: `パスワードは${MAX_LENGTH}文字以内で入力してください`
       },
       minLength: {
-        value: 3,
+        value: MIN_LENGHT,
         message: `パスワードは${MIN_LENGHT}文字以上で入力してください`
       },
       pattern: {
