@@ -20,8 +20,38 @@ db:
   host: 'localhost'      # DBのホスト
   port: '5432'           # DBのポート
   db_name: 'share_media' # DB名
-
+log:
+  version: 1
+  formatters:
+    default:
+      format: '%(asctime)s %(levelname)s %(name)s %(message)s'
+      datefmt: '%Y/%m/%d %I:%M:%S'
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: default
+      stream: ext://sys.stdout
+  loggers:
+    app_logger:
+      level: DEBUG
+      handlers: [console]
+      propagate: no
+  root:
+    level: DEBUG
+    handlers: [console]
 ```
   
-３．apiディレクトリにて``` python run.py ```コマンドを実行してapiを起動する  
-４．webディレクトリにて``` npm run dev ```コマンドを実行してフロントを起動する  
+３．apiディレクトリにて
+```
+$ pipenv install
+$ pipenv run start
+```
+を実行してapiを起動する  
+
+４．webディレクトリにて
+```
+$ npm install
+$ npm run dev
+```
+コマンドを実行してフロントを起動する  
