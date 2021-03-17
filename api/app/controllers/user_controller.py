@@ -15,11 +15,11 @@ async def users_create(user: UserCreate, db: Session = Depends(get_db)):
   logger.debug(f'user: {user}')
   logger.debug(f'db: {db}')
 
-  aleady_user = user_service.get_user_by_user_name(db, user.username)
-  logger.debug(f'aleady_user: {aleady_user}')
+  already_user = user_service.get_user_by_user_name(db, user.username)
+  logger.debug(f'already_user: {already_user}')
 
-  if aleady_user is not None:
-    logger.warn(f'aleady_user: {aleady_user}')
+  if already_user is not None:
+    logger.warn(f'already_user: {already_user}')
     raise ValidationException("登録済みのユーザがいます")
 
   user_service.create_user(db, user)
