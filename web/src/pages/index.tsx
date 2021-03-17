@@ -1,5 +1,5 @@
 import React from 'react'
-import TopTemplate from '../componets/templates/top_template'
+import TopTemplate from '../components/templates/top_template'
 
 const Index = () => {
   return (
