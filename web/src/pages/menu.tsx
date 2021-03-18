@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import MenuTemplate from '../componets/templates/menu_template';
+import MenuTemplate from '../components/templates/menu_template';
 import { logout } from '../common/auth'
 import { NextPageContext } from 'next'
 import ApiCaller from '../common/api_caller'
