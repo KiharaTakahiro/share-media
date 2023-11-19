@@ -23,4 +23,4 @@ const RegisterUser = () => {
   )
 } 
 
-export default RegisterUser;
+export default RegisterUser

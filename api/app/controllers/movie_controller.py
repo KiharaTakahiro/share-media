@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, File, UploadFile
 from sqlalchemy.orm import Session
 from app.common.exception import ValidationException
-from .base_controller import get_db
+from .base_controller import get_db, get_current_user
 from app.schemas.token_schema import Token
 from app.logger import logger
 from app.services import user_service
@@ -34,6 +34,6 @@ def save_upload_file_tmp(upload_file: UploadFile) -> Path:
   return buffer_name
 
 @router.post("/movies/upload_file")
-async def movies_create(file: UploadFile = File(...)):
+async def movies_create(file: UploadFile = File(...), current_user = Depends(get_current_user)):
   save_upload_file_tmp(file)
   return {'result':'success'}
