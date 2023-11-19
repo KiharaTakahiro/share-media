@@ -1,5 +1,5 @@
 import React from 'react'
-import RegisterMovieTemplate from '../componets/templates/register_movie_template'
+import RegisterMovieTemplate from '../components/templates/register_movie_template'
 import ApiCaller from '../common/file_uploader'
 
 const RegisterMovie = () => {

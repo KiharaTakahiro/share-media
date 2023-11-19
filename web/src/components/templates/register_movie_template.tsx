@@ -1,7 +1,7 @@
 import React from "react"
 import Grid from '@material-ui/core/Grid'
 import PartsTitle from "../parts/styles/title"
-import MovieUpload from '../../componets/parts/file_upload/movie_upload'
+import MovieUpload from '../parts/file_upload/movie_upload'
 import { useForm } from 'react-hook-form'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import PrimarySubmitButton from "../parts/buttons/primary_submit_button"
