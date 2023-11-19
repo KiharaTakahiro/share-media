@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+uvicorn = "*"
+pydantic = {extras = ["email"], version = "*"}
+psycopg2 = "*"
+sqlalchemy = "*"
+databases = "*"
+asyncpg = "*"
+python-jose = "*"
+pyyaml = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9.2"
+
+[scripts]
+start = "python run.py"

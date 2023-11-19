@@ -1,6 +1,6 @@
 import React from "react";
 import PrimarySubmitButton from "../parts/buttons/primary_submit_button"
-import RequireText from "../parts/text_fields/nomal_text"
+import RequireText from "../parts/text_fields/normal_text"
 type Props = {}
 
 const TopTemplate: React.FC<Props> = () => (

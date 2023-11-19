@@ -1,5 +1,5 @@
 import React from 'react'
-import RegisterUserTemplate from '../componets/templates/register_user_template';
+import RegisterUserTemplate from '../components/templates/register_user_template';
 import ApiCaller from '../common/api_caller'
 import Router from 'next/router'
 
@@ -23,4 +23,4 @@ const RegisterUser = () => {
   )
 } 
 
-export default RegisterUser
+export default RegisterUser;

@@ -8,10 +8,10 @@ type Props = {
   required?: boolean
 }
 
-const NomalText: React.FC<Props> = ({label, default_value, id, required}) => {
+const NormalText: React.FC<Props> = ({label, default_value, id, required}) => {
   return (
     <TextField required={required} id={id} label={label} defaultValue={default_value} variant="outlined"/>
   )
 };
 
-export default NomalText;
+export default NormalText;

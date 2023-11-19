@@ -1,5 +1,5 @@
 import React from 'react'
-import LoginUserTemplate from '../componets/templates/login_user_template';
+import LoginUserTemplate from '../components/templates/login_user_template';
 import ApiCaller from '../common/api_caller'
 import Router from 'next/router'
 import { set_token } from '../common/auth'
