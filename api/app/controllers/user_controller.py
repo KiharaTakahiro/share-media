@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.common.exception import ValidationException
 from app.services import user_service
-from .base_controller import get_db
+from .base_controller import get_db, get_current_user, get_current_user_with_refresh_token
 from app.schemas.user_schema import UserCreate, UserLogin, SessionUser
 from app.schemas.token_schema import Token
 from app.logger import logger
@@ -44,7 +44,7 @@ async def authenticate(user: UserLogin, db: Session = Depends(get_db)):
   return {'access_token': tokens['access_token'], 'refresh_token': tokens['refresh_token']}
 
 @router.post("/users/refresh_token", tags=["user_refresh_token"], response_model=Token)
-async def refresh_token(current_user: SessionUser = Depends(user_service.get_current_user_with_refresh_token)):
+async def refresh_token(current_user: SessionUser = Depends(get_current_user_with_refresh_token)):
   logger.debug(f'current_user: {current_user}')
   tokens = create_tokens(current_user.id)
   logger.debug(f'tokens: {tokens}')
@@ -52,6 +52,6 @@ async def refresh_token(current_user: SessionUser = Depends(user_service.get_cur
 
 # TODO: テスト用に追加するだけで実際には削除する
 @router.get("/users/me/")
-async def read_users_me(current_user = Depends(user_service.get_current_user)):
+async def read_users_me(current_user = Depends(get_current_user)):
   logger.debug(current_user)
   return current_user

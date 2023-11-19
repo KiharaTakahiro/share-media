@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import PrimaryClickButton from '../parts/buttons/primary_click_button'
 
 type Props = {

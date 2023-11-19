@@ -1,5 +1,6 @@
 from .config import config
 from .controllers.user_controller import router as user_route
+from .controllers.movie_controller import router as movie_route
 from fastapi import FastAPI, Response
 from starlette.requests import Request
 from starlette.middleware.cors import CORSMiddleware
@@ -49,6 +50,7 @@ def register_route(app:FastAPI):
   """ APIルータを登録する
   """
   app.include_router(user_route)
+  app.include_router(movie_route)
 
 def register_middleware(app:FastAPI):
   @app.middleware("http")
@@ -59,6 +61,8 @@ def register_middleware(app:FastAPI):
       request.state.db = SessionLocal()
       response = await call_next(request)
     except ValidationException as e:
+      raise e
+    except TokenException as e:
       raise e
     except Exception as e:
       raise APIException(f'{e}')

@@ -1,5 +1,3 @@
-from fastapi import Depends
-from fastapi.security import OAuth2PasswordBearer
 from app.logger import logger
 from sqlalchemy.orm import Session
 from app.common.exception import TokenException
@@ -8,9 +6,6 @@ from app.schemas.user_schema import UserCreate, UserLogin
 from app.common.convert import convert_hash
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
-from app.controllers.base_controller import get_db
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 # TODO: 実際の値はconfigから取得するように変更する
 HASH_SOLT = "SREMEHADIASTOL"
@@ -184,36 +179,4 @@ def get_current_user_from_token(token: str, token_type: str, db: Session):
     logger.error(f'token_type: {token_type}')
     raise TokenException('リフレッシュトークン不一致')
 
-  return user
-
-async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
-  """ アクセストークンをもとにユーザ取得
-
-  Args:
-      token (str, optional): [description]. Defaults to Depends(oauth2_scheme).
-
-  Returns:
-      User: ユーザ情報
-  """
-
-  logger.debug(f'token: {token}')
-  user = get_current_user_from_token(token, 'access_token', db)
-  logger.debug(f'user: {user}')
-
-  return user
-
-async def get_current_user_with_refresh_token(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
-  """ リフレッシュトークンからユーザ取得
-
-  Args:
-      token (str, optional): トークン情報. Defaults to Depends(oauth2_scheme).
-
-  Returns:
-      User: ユーザ情報
-  """
-
-  logger.debug(f'token: {token}')
-  user = get_current_user_from_token(token, 'refresh_token', db)
-  logger.debug(f'user: {user}')
-  
   return user

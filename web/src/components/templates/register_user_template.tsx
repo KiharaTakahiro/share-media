@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import PrimarySubmitButton from "../parts/buttons/primary_submit_button"
 import UserNameText from "../parts/text_fields/user_name_text"
 import PasswordText from "../parts/text_fields/password_text"

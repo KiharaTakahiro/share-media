@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pydantic
+pydantic[email]
+psycopg2
+sqlalchemy
+databases
+asyncpg
+python-jose
+python-multipart
